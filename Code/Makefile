@@ -1,0 +1,14 @@
+card_trick: main.o
+	gcc -std=c99 -Wall -Wextra -g main.o -o card_trick
+
+main.o: main.c cards.h
+	gcc -std=c99 -Wall -Wextra -g main.c -c -o main.o
+
+clean:
+	rm main.o card_trick
+
+
+
+
+
+
