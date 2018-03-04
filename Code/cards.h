@@ -9,13 +9,14 @@ typedef struct {
 } Card;
 
 typedef struct {
-    Card** cards;
+    Card* cards;
 } Deck;
 
-Card* make_card(char suit, char rank);
-void free_card(Card* card);
+Card make_card(char suit, char rank);
 
-Deck* make_deck();
+Deck make_deck();
 void free_deck();
+
+void print_deck(Deck deck);
 
 #endif

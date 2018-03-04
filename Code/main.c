@@ -4,39 +4,44 @@
 #include "cards.h"
 
 int main() {
-    Deck* deck = make_deck();
-
-    for (int i = 0; i < 52; i++) {
-        int cardMem = i * sizeof(Card);
-        printf("%c, %c\n", ((Card*) *(deck->cards + cardMem))->suit, ((Card*) *(deck->cards + cardMem))->rank);
-    }
+    Deck deck = make_deck();
+    print_deck(deck);
     return 0;
 }
 
-Card* make_card(char suit, char rank) {
-    Card* card = calloc(1, sizeof(Card));
-    card->suit = suit;
-    card->rank = rank;
+Card make_card(char suit, char rank) {
+    Card card;
+    card.suit = suit;
+    card.rank = rank;
     return card;
 }
 
-void free_card(Card* card) {
-    free(card);
-}
-
-Deck* make_deck() {
-    Deck* deck = calloc(1, sizeof(Deck));
-    deck->cards = calloc(52, sizeof(Card));
+Deck make_deck() {
+    Deck deck;
+    deck.cards = calloc(52, sizeof(Card));
 
     for (int i = 0; i < 52; i++) {
         int cardMem = i * sizeof(Card);
-        *(deck->cards + cardMem) = make_card('C', 'K');
-        printf("%c, %c\n", ((Card*) *(deck->cards + cardMem))->suit, ((Card*) *(deck->cards + cardMem))->rank);
+        *(deck.cards + cardMem) = make_card('C', 'K');
+        //printf("*(p + %d) : %c, %c\n", cardMem, (deck.cards + cardMem)->suit, (deck.cards + cardMem)->rank);
     }
 
     return deck;
 }
 
-void free_deck(Deck* deck) {
-    free(deck);
+void print_deck(Deck deck) {
+    char suits[53];
+    char ranks[53];
+
+    for (int i = 0; i < 52; i++) {
+        int cardMem = i * sizeof(Card);
+        suits[i] = (deck.cards + cardMem)->suit;
+        ranks[i] = (deck.cards + cardMem)->rank;
+        printf("%c, %c", suits[i], ranks[i]);
+    }
+    suits[52] = '\0';
+    ranks[52] = '\0';
+
+    printf("%s", suits);
+    printf("%s", ranks);
 }
