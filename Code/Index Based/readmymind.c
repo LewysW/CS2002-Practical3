@@ -2,14 +2,20 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <time.h>
+#include <stdbool.h>
 #include <string.h>
 #include "cards.h"
 
 int main() {
-    int col = getUserCol();
     struct Deck deck = getDeck();
     struct Columns columns = fill(deck);
+    int col = getUserCol();
     printCols(columns);
+    //char * input;
+    //input = malloc(2);
+    //scanf("%s", input);
+    //printCols(columns);
+
     return 0;
 }
 
@@ -24,19 +30,19 @@ int getUserCol() {
     return charToInt(input);
 }
 
-int isValidInp(char input[]) {
+bool isValidInp(char input[]) {
     char valid[6] = {'l', 'm', 'r', 'L', 'M', 'R'};
 
-    if (strlen(input) > 2) return 0;
+    if (strlen(input) > 2) return false;
 
     for (int i = 0; i < sizeof(valid)/sizeof(valid[0]); i++) {
         if (input[0] == valid[i]) {
             assert(input != NULL);
-            return 1;
+            return true;
         }
     }
 
-    return 0;
+    return false;
 }
 
 int charToInt(char input[]) {
@@ -57,9 +63,9 @@ struct Deck getDeck() {
     int rank;
     int suit;
 
-    for (int  i = 0; i < deckSize; i++) {
-        suit = (i / suitSize) + 1;
-        rank = (i % suitSize) + 1;
+    for (int  i = 0; i < DECK_SIZE; i++) {
+        suit = (i / SUIT_SIZE);
+        rank = (i % SUIT_SIZE);
         deck.cards[i] = getCard(suit, rank);
     }
 
@@ -76,20 +82,20 @@ struct Card getCard(int suit, int rank) {
 
 struct Columns fill(struct Deck deck) {
     struct Columns columns;
-    int chosen[52] = { 0 };
+    int chosen[DECK_SIZE] = { 0 };
     int counter = 0;
     srand(time(NULL));
     int random = 0;
 
-    // Repeats until 21 unique cards have been assigned to columns
-    while (counter < 21) {
+    // Repeats until 21 (3 * 7) unique cards have been assigned to columns
+    while (counter < (NUM_COLUMNS * COLUMN_SIZE)) {
         //Generates a random number between
-        random = rand()%deckSize;
+        random = rand()%DECK_SIZE;
         if (chosen[random] == 0) {
             /* Counter / columnSize finds the current column,
             counter % columnSize calculates current card in column.
             The random card selected is assigned to the card position in this column */
-            columns.column[counter / columnSize].cards[counter % columnSize] = deck.cards[random];
+            columns.column[counter / COLUMN_SIZE].cards[counter % COLUMN_SIZE] = deck.cards[random];
             // Increments number of cards assign to columns
             counter++;
             // Sets card to used so it won't be assigned twice.
@@ -101,9 +107,17 @@ struct Columns fill(struct Deck deck) {
 }
 
 void printCols(struct Columns columns) {
-    for (int i = 0; i < columnSize; i++) {
-        for (int j = 0; j < numColumns; j++) {
-            printf("(%d, %d) ", columns.column[i].cards[j].suit, columns.column[i].cards[j].rank);
+    int suit;
+    int rank;
+
+    for (int i = 0; i < COLUMN_SIZE; i++) {
+        for (int j = 0; j < NUM_COLUMNS; j++) {
+            suit = columns.column[i].cards[j].suit;
+            rank = columns.column[i].cards[j].rank;
+
+            //Special formatting for '10' card
+            if (RANKS[rank] == "10") printf("%s%s ", RANKS[rank], SUITS[suit]);
+            else printf("%s%s  ", RANKS[rank], SUITS[suit]);
         }
 
         printf("\n");
