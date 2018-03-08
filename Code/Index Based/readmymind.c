@@ -8,6 +8,8 @@
 int main() {
     int col = getUserCol();
     struct Deck deck = getDeck();
+    struct Columns columns = fill(deck);
+    printCols(columns);
     return 0;
 }
 
@@ -55,32 +57,55 @@ struct Deck getDeck() {
     int rank;
     int suit;
 
-    for (int  i = 0; i < 52; i++) {
-        suit = (i / 13) + 1;
-        rank = (i % 13) + 1;
+    for (int  i = 0; i < deckSize; i++) {
+        suit = (i / suitSize) + 1;
+        rank = (i % suitSize) + 1;
         deck.cards[i] = getCard(suit, rank);
     }
 
     return deck;
 }
 
-struct Card getCard(int suitNum, int rank) {
-    char suit;
-
-    if (suitNum == 1) {
-        suit = 'S';
-    } else if (suitNum == 2) {
-        suit = 'H';
-    } else if (suitNum == 3) {
-        suit = 'C';
-    } else if (suitNum == 4) {
-        suit = 'D';
-    }
-
+struct Card getCard(int suit, int rank) {
     struct Card card;
     card.suit = suit;
     card.rank = rank;
 
-    printf("Suit: %c, Rank: %d\n", card.suit, card.rank);
     return card;
+}
+
+struct Columns fill(struct Deck deck) {
+    struct Columns columns;
+    int chosen[52] = { 0 };
+    int counter = 0;
+    srand(time(NULL));
+    int random = 0;
+
+    // Repeats until 21 unique cards have been assigned to columns
+    while (counter < 21) {
+        //Generates a random number between
+        random = rand()%deckSize;
+        if (chosen[random] == 0) {
+            /* Counter / columnSize finds the current column,
+            counter % columnSize calculates current card in column.
+            The random card selected is assigned to the card position in this column */
+            columns.column[counter / columnSize].cards[counter % columnSize] = deck.cards[random];
+            // Increments number of cards assign to columns
+            counter++;
+            // Sets card to used so it won't be assigned twice.
+            chosen[random] = 1;
+        }
+    }
+
+    return columns;
+}
+
+void printCols(struct Columns columns) {
+    for (int i = 0; i < columnSize; i++) {
+        for (int j = 0; j < numColumns; j++) {
+            printf("(%d, %d) ", columns.column[i].cards[j].suit, columns.column[i].cards[j].rank);
+        }
+
+        printf("\n");
+    }
 }
