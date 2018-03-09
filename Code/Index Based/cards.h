@@ -6,10 +6,6 @@
 #define NUM_SUITS 4
 #define COLUMN_SIZE 7
 #define NUM_COLUMNS 3
-#define SPADE 1
-#define HEART 2
-#define DIAMOND 3
-#define CLUB 4
 const char* CARD_FACES[NUM_SUITS][SUIT_SIZE] = {\
                                             {"🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂭","🂮"},\
                                             {"🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂽","🂾"},\
@@ -46,4 +42,5 @@ struct Columns fill(struct Deck deck);
 void printCols(struct Columns columns);
 void printCentreCard(struct Columns columns);
 struct Columns gather(struct Columns columns, int col);
+struct Columns deal(struct Columns columns);
 #endif

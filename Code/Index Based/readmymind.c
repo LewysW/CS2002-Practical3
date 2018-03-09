@@ -11,10 +11,11 @@ int main() {
     struct Columns columns = fill(deck);
     int col;
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
         printCols(columns);
         col = getUserCol();
         columns = gather(columns, col);
+        columns = deal(columns);
     }
 
     printCentreCard(columns);
@@ -147,4 +148,23 @@ struct Columns gather(struct Columns columns, int col) {
 
     return newColumns;
 
+}
+
+struct Columns deal(struct Columns columns) {
+    struct Columns newColumns;
+    int column = 0;
+    int row = -1;
+    int cardsDealt = 0;
+
+    for (int i = 0; i < NUM_COLUMNS; i++) {
+        for (int j = 0; j < COLUMN_SIZE; j++) {
+            column = (i + j) % NUM_COLUMNS;
+            if (cardsDealt % NUM_COLUMNS == 0) row++;
+            newColumns.column[column].cards[row] = columns.column[i].cards[j];
+            cardsDealt++;
+        }
+
+    }
+
+    return newColumns;
 }
