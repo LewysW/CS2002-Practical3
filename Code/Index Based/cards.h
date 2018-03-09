@@ -29,7 +29,7 @@ typedef struct Deck {
     struct Card cards [DECK_SIZE];
 };
 
-struct Column {
+typedef struct Column {
     struct Card cards[COLUMN_SIZE];
 };
 
@@ -44,4 +44,6 @@ struct Card getCard(int suit, int rank);
 struct Deck getDeck();
 struct Columns fill(struct Deck deck);
 void printCols(struct Columns columns);
+void printCentreCard(struct Columns columns);
+struct Columns gather(struct Columns columns, int col);
 #endif

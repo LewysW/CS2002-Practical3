@@ -9,13 +9,15 @@
 int main() {
     struct Deck deck = getDeck();
     struct Columns columns = fill(deck);
-    int col = getUserCol();
-    printCols(columns);
-    //char * input;
-    //input = malloc(2);
-    //scanf("%s", input);
-    //printCols(columns);
+    int col;
 
+    for (int i = 0; i < 3; i++) {
+        printCols(columns);
+        col = getUserCol();
+        columns = gather(columns, col);
+    }
+
+    printCentreCard(columns);
     return 0;
 }
 
@@ -31,7 +33,7 @@ int getUserCol() {
 }
 
 bool isValidInp(char input[]) {
-    char valid[6] = {'l', 'm', 'r', 'L', 'M', 'R'};
+    static const char valid[6] = {'l', 'm', 'r', 'L', 'M', 'R'};
 
     if (strlen(input) > 2) return false;
 
@@ -92,6 +94,7 @@ struct Columns fill(struct Deck deck) {
         //Generates a random number between
         random = rand()%DECK_SIZE;
         if (chosen[random] == 0) {
+            //TODO change to make more readable
             /* Counter / columnSize finds the current column,
             counter % columnSize calculates current card in column.
             The random card selected is assigned to the card position in this column */
@@ -112,14 +115,36 @@ void printCols(struct Columns columns) {
 
     for (int i = 0; i < COLUMN_SIZE; i++) {
         for (int j = 0; j < NUM_COLUMNS; j++) {
-            suit = columns.column[i].cards[j].suit;
-            rank = columns.column[i].cards[j].rank;
+            suit = columns.column[j].cards[i].suit;
+            rank = columns.column[j].cards[i].rank;
 
             //Special formatting for '10' card
-            if (RANKS[rank] == "10") printf("%s%s ", RANKS[rank], SUITS[suit]);
+            if (rank == 9) printf("%s%s ", RANKS[rank], SUITS[suit]);
             else printf("%s%s  ", RANKS[rank], SUITS[suit]);
         }
 
         printf("\n");
     }
+}
+
+void printCentreCard(struct Columns columns) {
+    int suit = columns.column[1].cards[3].suit;
+    int rank = columns.column[1].cards[3].rank;
+    printf("Your card is the %s%s\n", RANKS[rank], SUITS[suit]);
+}
+
+struct Columns gather(struct Columns columns, int col) {
+    struct Columns newColumns;
+    newColumns.column[1] = columns.column[col];
+    int index = 0;
+
+    for (int i = 0; i < NUM_COLUMNS; i++) {
+        if (i != col) {
+            newColumns.column[index] = columns.column[i];
+            index += 2;
+        }
+    }
+
+    return newColumns;
+
 }
