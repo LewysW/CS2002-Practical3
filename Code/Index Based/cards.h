@@ -23,15 +23,15 @@ struct Card {
 
 typedef struct Deck {
     struct Card cards [DECK_SIZE];
-};
+}Deck;
 
 typedef struct Column {
     struct Card cards[COLUMN_SIZE];
-};
+}Column;
 
 typedef struct Columns {
     struct Column column[NUM_COLUMNS];
-};
+}Columns;
 
 int getUserCol();
 bool isValidInp(char input[]);
