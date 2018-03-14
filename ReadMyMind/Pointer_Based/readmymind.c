@@ -1,47 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "cards.h"
+#include <stdbool.h>
+#include "readmymind.h"
 
 int main() {
-    Deck deck = make_deck();
-    print_deck(deck);
+    /*Declares a deck of 52 cards, the columns to store the 21 cards and an int
+    to store the user's choice of column. */
+    struct Deck deck = getDeck();
+    printList(deck.node);
+    //removeNode(deck.node, 10);
+    //printList(deck.node);
+    struct Columns columns = fill(deck.node);
+    printList(columns.first);
+    printList(columns.second);
+    printList(columns.third);
+
+    //int col;
+
+    /* Repeats 3 times, each time printing the 3 columns of 7 cards and prompting
+     the user to enter their column of choice signifying where their card is.
+     Cards are gathered and re-dealt into new columns before being printed */
+    //for (int i = 0; i < 3; i++) {
+        //printCols(columns);
+        //col = getUserCol();
+        //columns = gather(columns, col);
+        //columns = deal(columns);
+    //}
+
+    //printCols(columns);
+    //printCentreCard(columns);
     return 0;
-}
-
-Card make_card(char suit, char rank) {
-    Card card;
-    card.suit = suit;
-    card.rank = rank;
-    return card;
-}
-
-Deck make_deck() {
-    Deck deck;
-    deck.cards = calloc(52, sizeof(Card));
-
-    for (int i = 0; i < 52; i++) {
-        int cardMem = i * sizeof(Card);
-        *(deck.cards + cardMem) = make_card('C', 'K');
-        //printf("*(p + %d) : %c, %c\n", cardMem, (deck.cards + cardMem)->suit, (deck.cards + cardMem)->rank);
-    }
-
-    return deck;
-}
-
-void print_deck(Deck deck) {
-    char suits[53];
-    char ranks[53];
-
-    for (int i = 0; i < 52; i++) {
-        int cardMem = i * sizeof(Card);
-        suits[i] = (deck.cards + cardMem)->suit;
-        ranks[i] = (deck.cards + cardMem)->rank;
-        printf("%c, %c", suits[i], ranks[i]);
-    }
-    suits[52] = '\0';
-    ranks[52] = '\0';
-
-    printf("%s", suits);
-    printf("%s", ranks);
 }

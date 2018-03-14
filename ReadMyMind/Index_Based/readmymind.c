@@ -25,36 +25,3 @@ int main() {
     printCentreCard(columns);
     return 0;
 }
-
-
-/*
-Generates a deck struct whose cards are populated with integers representing
-the suit (0 - 3) and rank (0 - 12) of the current card.
-*/
-struct Deck getDeck() {
-    struct Deck deck;
-    int rank;
-    int suit;
-
-    //Iterates over every card in the deck and sets the suit and rank.
-    for (int  i = 0; i < DECK_SIZE; i++) {
-        suit = (i / SUIT_SIZE);
-        rank = (i % SUIT_SIZE);
-
-        //Creates card using getCard and assigns it to card array in deck struct.
-        deck.cards[i] = getCard(suit, rank);
-    }
-
-    return deck;
-}
-
-/*
-Initialises a card struct by assigning its suit and rank.
-*/
-struct Card getCard(int suit, int rank) {
-    struct Card card;
-    card.suit = suit;
-    card.rank = rank;
-
-    return card;
-}

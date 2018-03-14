@@ -1,0 +1,49 @@
+\documentclass[11]{article}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+
+\title{CS2002 Practical 3 - \\C Programming 2}
+\date{16/03/2018}
+\author{Matriculation Number: 160001362}
+
+\begin{document}
+	\maketitle
+	\newpage
+	\tableofcontents
+	
+	\newpage
+	\section{Overview}
+	This practical specified the development of a system to perform a card trick that finds a user selected card based on the column in which their card resides among twenty-one random cards. The practical further specified that the implementation should utilise an index (array) based solution and/or a pointer based solution. For this submission both an index based solution has been developed as well as a non-global pointer based solution which makes use of linked lists.
+	\section{Design and Implementation}
+		\subsection{Index Based}
+			\subsubsection{Files}
+				\begin{itemize}
+					\item \textbf{readmymind.c} - This file contains the main function of the program. It is responsible for handling the control flow of the program and initialising the necessary structs and variables required.
+					\item \textbf{cards.c} - This file is responsible for initialising the fundamental structures required for use in the program. Has a function responsible for creating and initialising a 'Deck' struct (by populating it with card structs) as well as a function to create and return a card struct given a suit and rank. The file also has a function 'fill' which randomly selects 21 unique cards from a given deck and uses them to populate a columns struct.
+					\item \textbf{io.c} - Handles the input and output of the solution. The file contains functions to get the user's column selection, validate this input, and convert this input into an integer format more easily utilised in the program. In addition the file contains a function to print a columns structure to the terminal as well as print the centre card of a columns structure.
+					\item \textbf{actions.c} - Contains functions relating to the actions performed during the card trick. The 'gather' function creates a new columns struct and initialises it with the previous columns rearranged so that the column selected by the user is in the centre. The 'deal' function iterates through the cards of each column in the columns struct returned from 'gather' and deals the cards into the new struct from left to right across the columns.
+					\item \textbf{readmymind.h} - Contains definitions for the size of data structure dimensions (e.g. COLUMN\_SIZE, SUIT\_SIZE), the structs representing the data structures, as well as for the signatures of functions used throughout the program.
+				\end{itemize}
+			\newpage
+			\subsubsection{Data Structures}
+				\begin{itemize}
+					\item \textbf{Card} - Has two integer attributes:
+						\begin{itemize}
+							\item \textbf{suit} - a number from 0 - 3 representing either spade, heart, diamond, or club.
+							\item \textbf{rank} - a number from 0 - 12 representing and Ace, 2, 3, 4, 5, 6, 7, 8, 9, Jack, Queen, or King respectively.
+						\end{itemize}
+					
+					\item \textbf{Deck} - Has one attribute 'cards' which is an array of type Card which has the size of the constant DECK\_SIZE (in the general case 52).
+					
+					\item \textbf{Column} - Like the Deck struct - has one attribute 'cards' which is an array of type Card which has the size of constant COLUMN\_SIZE (typically 7).
+					
+					\item \textbf{Columns} - Has an attribute 'column' which is an array of columns of size NUM\_COLUMNS (typically 3).
+				\end{itemize}
+		\subsection{Pointer Based}
+		
+	\section{Testing}
+	
+	\section{Conclusion and Evaluation}
+		
+\end{document}
