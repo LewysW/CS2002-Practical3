@@ -40,10 +40,10 @@ typedef struct Columns {
 int getUserCol();
 
 // Validates the user's input
-bool isValidInp(char input[]);
+bool isValidInp(char* input);
 
 // Converts the user's input to an integer
-int charToInt(char input[]);
+int charToInt(char input);
 
 // Creates and returns a card object given an integer suit and rank
 struct Card getCard(int suit, int rank);
@@ -76,7 +76,9 @@ bool hasNext(Node head);
 void printNode(Node head, int index);
 void printList(Node head);
 Node getNode(Node head, int index);
-void removeNode(Node node, int index);
-void updateIndices(Node node);
+void printCard(Node node);
+void printSuit(int suit);
+void printRank(int rank);
+
 
 #endif

@@ -44,9 +44,9 @@ Initialises a Columns struct with 21 random and unique cards from the deck of
 struct Columns fill(Node deckHead) {
     //Declares Columns struct to be returned with 21 random cards.
     struct Columns columns;
-    columns.first = NULL;
-    columns.second = NULL;
-    columns.third = NULL;
+    columns.first = malloc(sizeof(struct LinkedList));
+    columns.second = malloc(sizeof(struct LinkedList));
+    columns.third = malloc(sizeof(struct LinkedList));
 
     //Stores number of cards chosen
     int counter = 0;
@@ -75,6 +75,7 @@ struct Columns fill(Node deckHead) {
         } else if (column == 2) {
             columns.third = addNode(columns.third, currentNode->card);
         }
+
 
         currentNode->chosen = true;
         counter++;

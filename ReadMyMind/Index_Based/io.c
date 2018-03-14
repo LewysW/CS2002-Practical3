@@ -60,25 +60,6 @@ bool isValidInp(char input[]) {
     return false;
 }
 
-/*
-Converts the user's column character into a corresponding int value to be easier
-to iterate over in the program.
-*/
-int charToInt(char input[]) {
-    //l/L corresponds to 0
-    if (input[0] == 'l' || input[0] == 'L') {
-        return 0;
-    //m/M corresponds to 1
-    } else if (input[0] == 'm' || input[0] == 'M') {
-        return 1;
-    //r/R corresponds to 2
-    } else if (input[0] == 'r' || input[0] == 'R') {
-        return 2;
-    }
-
-    // Should never happen but will terminate program if it does.
-    assert(!"Uncreachable Code");
-}
 
 /*
 Iterates over a Columns struct and prints outs the cards in each column.

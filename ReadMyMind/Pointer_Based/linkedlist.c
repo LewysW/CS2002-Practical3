@@ -34,10 +34,6 @@ Node addNode(Node head, struct Card card) {
     return head;
 }
 
-bool hasNext(Node head) {
-    return (head->next) != NULL;
-}
-
 //TODO Use to display cards at end
 void printNode(Node head, int index) {
     if (head != NULL && head->index != index) {
@@ -58,26 +54,4 @@ Node getNode(Node head, int index) {
     if (head->index == index) return head;
 
     return getNode(head->next, index);
-}
-
-void removeNode(Node node, int index) {
-    if (index == 0) {
-        node = node->next;
-        updateIndices(node);
-        return;
-    }
-
-    if (node->next->index == index) {
-        node->next = node->next->next;
-        updateIndices(node->next);
-    } else {
-        removeNode(node->next, index);
-    }
-}
-
-void updateIndices(Node node) {
-    if (node != NULL) {
-        node->index = node->index - 1;
-        updateIndices(node->next);
-    }
 }
