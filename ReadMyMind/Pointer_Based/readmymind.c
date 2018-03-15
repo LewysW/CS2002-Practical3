@@ -19,7 +19,8 @@ int main() {
         col = getUserCol();
         columns = gather(columns, col);
         printCols(columns);
-        //columns = deal(columns);
+        columns = deal(columns);
+        printCols(columns);
     //}
 
     //printCols(columns);

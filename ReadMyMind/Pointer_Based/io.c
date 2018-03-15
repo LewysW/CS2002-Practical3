@@ -96,6 +96,8 @@ void printCard(Node node) {
 
     printRank(rank);
     printSuit(suit);
+
+    if (rank != 9) printf(" ");
 }
 
 void printSuit(int suit) {
@@ -132,7 +134,7 @@ void printRank(int rank) {
             printf("K");
             break;
         default:
-            printf("%d", rank);
+            printf("%d", rank + 1);
             break;
     }
 }
