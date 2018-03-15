@@ -17,6 +17,9 @@ struct Card {
 };
 
 // Used for reference https://www.hackerearth.com/practice/data-structures/linked-list/singly-linked-list/tutorial/
+// Has a card to store the card value, a next pointer to the next node in the list,
+// an index signifying the node's position in the list, and a bool signifying whether
+// the card has been chosen to be one of the 21 cards.
 struct LinkedList {
     struct Card card;
     struct LinkedList* next;
@@ -24,12 +27,15 @@ struct LinkedList {
     bool chosen;
 };
 
+//Allows declareation of LinkedList structs using Node keyword
 typedef struct LinkedList* Node;
 
+//Deck struct is just a linked list.
 typedef struct Deck {
     Node node;
 }Deck;
 
+//Columns struct is three linked lists.
 typedef struct Columns {
     Node first;
     Node second;
@@ -66,18 +72,31 @@ new columns struct
 */
 struct Columns gather(struct Columns columns, int col);
 
-/* Deals the cards of a columns struct from columns into rows and returns the new
+/* Deals the cards of a columns struct and returns the new
 resulting columns struct */
 struct Columns deal(struct Columns columns);
 
+//Memory allocates a new node and sets its initial values.
 Node createNode();
+
+//Adds a node to the tail of a list
 Node addNode(Node head, struct Card card);
-bool hasNext(Node head);
+
+//Gets the node in a list at a given index
 Node getNode(Node head, int index);
+
+//Prints a card struct
 void printCard(Node node);
+
+//Prints the suit of a card struct
 void printSuit(int suit);
+
+//Prints the rank of a card struct.
 void printRank(int rank);
+
+//Updates the indices of a list from a given index
 void updateIndices(Node node, int index);
 
+void freeList(Node node);
 
 #endif

@@ -25,7 +25,9 @@ int getUserCol() {
     } while (!isValidInp(input));
 
     // Returns an integer from 0 to 2 corresponding to the character chosen by the user.
-    return charToInt(*(input));
+    int charInt = charToInt(*(input));
+    free(input);
+    return charInt;
 }
 
 /*
