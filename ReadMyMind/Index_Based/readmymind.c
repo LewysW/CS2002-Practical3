@@ -21,6 +21,7 @@ int main() {
         columns = deal(columns);
     }
 
+    //Cards are printed a final time and the system displays the user's card.
     printCols(columns);
     printCentreCard(columns);
     return 0;

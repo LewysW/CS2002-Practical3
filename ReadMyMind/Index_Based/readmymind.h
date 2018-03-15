@@ -38,11 +38,11 @@ typedef struct Columns {
 // Prompts user to enter the column that their card is in.
 int getUserCol();
 
-// Validates the user's input
-bool isValidInp(char input[]);
+// Validates user's input
+bool isValidInp(char* input);
 
 // Converts the user's input to an integer
-int charToInt(char input[]);
+int charToInt(char input);
 
 // Creates and returns a card object given an integer suit and rank
 struct Card getCard(int suit, int rank);

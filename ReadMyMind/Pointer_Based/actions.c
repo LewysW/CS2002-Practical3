@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "readmymind.h"
 
 /*
@@ -43,24 +44,32 @@ struct Columns deal(struct Columns columns) {
     getNode(columns.first, COLUMN_SIZE)->next = getNode(columns.second, 1);
 
     Node catColumn = getNode(columns.first, 1);
+    updateIndices(catColumn, 0);
 
-    printList(catColumn);
+    newColumns.first = malloc(sizeof(struct LinkedList));
+    newColumns.second = malloc(sizeof(struct LinkedList));
+    newColumns.third = malloc(sizeof(struct LinkedList));
+    int cardsDealt = 0;
 
-    for (int i = 1; i <= (NUM_COLUMNS * COLUMN_SIZE); i++) {
-        for (int j = 0; i < NUM_COLUMNS; j++) {
-            switch(i) {
+    while (cardsDealt < (NUM_COLUMNS * COLUMN_SIZE)) {
+        for (int j = 0; j < NUM_COLUMNS; j++) {
+            switch(j) {
                 case 0:
-                    newColumns.first = addNode(newColumns.first, getNode(catColumn, i)->card);
+                    addNode(newColumns.first, getNode(catColumn, cardsDealt)->card);
+                    cardsDealt++;
                     break;
                 case 1:
-                    newColumns.second = addNode(newColumns.second, getNode(catColumn, i)->card);
+                    addNode(newColumns.second, getNode(catColumn, cardsDealt)->card);
+                    cardsDealt++;
                     break;
                 case 2:
-                    newColumns.third = addNode(newColumns.third, getNode(catColumn, i)->card);
+                    addNode(newColumns.third, getNode(catColumn, cardsDealt)->card);
+                    cardsDealt++;
                     break;
             }
         }
     }
+
 
     return newColumns;
 

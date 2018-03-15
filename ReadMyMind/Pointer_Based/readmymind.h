@@ -73,12 +73,11 @@ struct Columns deal(struct Columns columns);
 Node createNode();
 Node addNode(Node head, struct Card card);
 bool hasNext(Node head);
-void printNode(Node head, int index);
-void printList(Node head);
 Node getNode(Node head, int index);
 void printCard(Node node);
 void printSuit(int suit);
 void printRank(int rank);
+void updateIndices(Node node, int index);
 
 
 #endif

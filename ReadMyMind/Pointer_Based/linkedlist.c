@@ -34,24 +34,15 @@ Node addNode(Node head, struct Card card) {
     return head;
 }
 
-//TODO Use to display cards at end
-void printNode(Node head, int index) {
-    if (head != NULL && head->index != index) {
-        Node nextNode = head->next;
-        printf("Suit: %d, Rank: %d\n", head->card.suit, head->card.rank);
-        printNode(nextNode, index);
-    }
-}
-
-void printList(Node head) {
-    if (head != NULL) {
-        printf("Suit: %d, Rank: %d\n", head->card.suit, head->card.rank);
-        printList(head->next);
-    }
-}
-
 Node getNode(Node head, int index) {
     if (head->index == index) return head;
 
     return getNode(head->next, index);
+}
+
+void updateIndices(Node node, int index) {
+    if (node != NULL) {
+        node->index = index;
+        updateIndices(node->next, index + 1);
+   }
 }

@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <assert.h>
+#include <stdlib.h>
 #include "readmymind.h"
 
 //Used for displaying cards
@@ -14,19 +15,17 @@ resides in.
 */
 int getUserCol() {
     //Stores the users input
-    char input[10];
+    char* input = malloc(sizeof(100));
 
     do {
         printf("Which column does your card sit in? (L, M, R)\n");
-
-        //Takes a maximum of 10 characters (9 from the user excluding the \0)
-        fgets(input, 10, stdin);
+        scanf("%s", input);
 
         //Repeats while the input is invalid.
     } while (!isValidInp(input));
 
     // Returns an integer from 0 to 2 corresponding to the character chosen by the user.
-    return charToInt(input);
+    return charToInt(*(input));
 }
 
 /*
@@ -35,14 +34,12 @@ whether the user's input is valid.
 
 @input - array of characters entered by user.
 */
-bool isValidInp(char input[]) {
+bool isValidInp(char* input) {
     // Valid characters.
     static const char valid[6] = {'l', 'm', 'r', 'L', 'M', 'R'};
 
-    /* If the user's input is greater than 2 (their character plus the NULL
-    terminator (\0) character) then return false.
-    */
-    if (strlen(input) > 2) return false;
+    // If the user's input is greater than 1 then return false
+    if (strlen(input) > 1) return false;
 
     /*
     Iterates over the list of valid characters and checks each against the character
@@ -51,13 +48,33 @@ bool isValidInp(char input[]) {
     Used size_t to make i and unsigned int to avoid a comparison between a signed and unsigned int
     */
     for (size_t i = 0; i < sizeof(valid)/sizeof(valid[0]); i++) {
-        if (input[0] == valid[i]) {
+        if (*input == valid[i]) {
             assert(input != NULL);
             return true;
         }
     }
 
     return false;
+}
+
+/*
+Converts the user's column character into a corresponding int value to be easier
+to iterate over in the program.
+*/
+int charToInt(char input) {
+    //l/L corresponds to 0
+    if (input == 'l' || input == 'L') {
+        return 0;
+    //m/M corresponds to 1
+    } else if (input == 'm' || input == 'M') {
+        return 1;
+    //r/R corresponds to 2
+    } else if (input == 'r' || input == 'R') {
+        return 2;
+    }
+
+    // Should never happen but will terminate program if it does.
+    assert(!"Uncreachable Code");
 }
 
 

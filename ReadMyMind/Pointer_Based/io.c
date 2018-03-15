@@ -11,12 +11,12 @@ resides in.
 */
 int getUserCol() {
     //Stores the users input
-    char* input;
+    char* input = malloc(sizeof(100));
 
 
     do {
         printf("Which column does your card sit in? (L, M, R)\n");
-        fgets(input, 10, stdin);
+        scanf("%s", input);
 
         //Repeats while the input is invalid.
     } while (!isValidInp(input));
@@ -26,14 +26,17 @@ int getUserCol() {
 }
 
 /*
-Iterates over the character(s) input by the user and returns a boolean signifying
-whether the user's input is valid.
+Uses a switch statement to determine whether the user's input is valid. If the
+character entered is a valid case then true is returned otherwise by default
+false is returned.
 
 @input - array of characters entered by user.
 */
 bool isValidInp(char* input) {
-    if (strlen(input) > 2) return false;
+    // If the user's input is greater than 1 then return false
+    if (strlen(input) > 1) return false;
 
+    // Cases with valid input return true otherwise false is returned.
     switch(*(input)) {
         case 'l':
         case 'L':
@@ -48,7 +51,8 @@ bool isValidInp(char* input) {
             break;
     }
 
-    return false;
+    // Should never happen but will terminate program if it does.
+    assert(!"Uncreachable Code");
 }
 
 /*
@@ -72,35 +76,53 @@ int charToInt(char input) {
 }
 
 /*
-Iterates over a Columns struct and prints outs the cards in each column.
+Iterates over each of the column lists in the columns struct and prints the cardsDealt
+of each
 
 @Columns to be printed
 */
 void printCols(struct Columns columns) {
-    //Iterates over column size in outer loop and number of columns in inner loop
-    //so that cards are printed in the same order as they would be dealt in real life.
+    // Prints card at current row (i) of each column list.
     for (int i = 1; i <= COLUMN_SIZE; i++) {
         printCard(getNode(columns.first, i));
         printCard(getNode(columns.second, i));
         printCard(getNode(columns.third, i));
         printf("\n");
 
-
     }
 }
 
+/*
+Prints the card value of the node passed in.
+
+@node - element of card to be printed.
+*/
 void printCard(Node node) {
+    //Gets the card at the node.
     struct Card card = node->card;
+
+    //Gets suit and rank of card.
     int suit = card.suit;
     int rank = card.rank;
 
+    //Prints rank and suit.
     printRank(rank);
     printSuit(suit);
 
+    //Adds space if card is double digit character (10)
     if (rank != 9) printf(" ");
 }
 
+/*
+Prints the icon corresponding to the suit integer passed in.
+
+@ suit - integer corresponding to suit to be printed.
+*/
 void printSuit(int suit) {
+    /*
+    Prints a suit icon corresponding to an integer from 0 - 3.
+    Used switch statement to avoid declaring an array of icons.
+    */
     switch(suit) {
         case 0:
             printf("♠");
@@ -119,6 +141,11 @@ void printSuit(int suit) {
     printf(" ");
 }
 
+/*
+Prints the character(s) corresponding to the rank integer passed in.
+
+@ rank - integer corresponding to suit to be printed.
+*/
 void printRank(int rank) {
     switch(rank) {
         case 0:
@@ -148,4 +175,5 @@ void printCentreCard(struct Columns columns) {
     Node node = getNode(columns.second, (COLUMN_SIZE / 2) + 1);
     printf("Your card is: ");
     printCard(node);
+    printf("\n");
 }

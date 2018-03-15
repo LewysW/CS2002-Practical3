@@ -14,16 +14,15 @@ int main() {
     /* Repeats 3 times, each time printing the 3 columns of 7 cards and prompting
      the user to enter their column of choice signifying where their card is.
      Cards are gathered and re-dealt into new columns before being printed */
-    //for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++) {
         printCols(columns);
         col = getUserCol();
         columns = gather(columns, col);
-        printCols(columns);
         columns = deal(columns);
-        printCols(columns);
-    //}
+    }
 
-    //printCols(columns);
-    //printCentreCard(columns);
+    //Cards are printed a final time and the system displays the user's card.
+    printCols(columns);
+    printCentreCard(columns);
     return 0;
 }
