@@ -1,6 +1,6 @@
 \documentclass[11]{article}
 \usepackage{graphicx}
-\graphicspath{ {images/} }
+\graphicspath{{images/}}
 
 
 \title{CS2002 Practical 3 - \\C Programming 2}
@@ -14,9 +14,10 @@
 	
 	\newpage
 	\section{Overview}
-	This practical specified the development of a system to perform a card trick that finds a user selected card based on the column in which their card resides among twenty-one random cards. The practical further specified that the implementation should utilise an index (array) based solution and/or a pointer based solution. For this submission both an index based solution has been developed as well as a non-global pointer based solution which makes use of linked lists. \\\\For the pointer based implementation I challenged myself to not use a single set of square brackets to reference an index (even for displaying card suits/ranks) which proved challenging but achievable.
+	This practical specified the development of a system to perform a card trick that finds a user selected card based on the column in which their card resides among twenty-one random cards. The practical further specified that the implementation should utilise an index (array) based solution and/or a pointer based solution. For this submission both an index based solution has been developed as well as a non-global pointer based solution which makes use of linked lists. For the pointer based implementation I challenged myself to not use a single set of square brackets to reference an index (even for displaying card suits/ranks) which proved challenging but achievable.
 	\section{Design and Implementation}
-		\subsubsection{Files \footnote{Same file hierarchy is used for both implementations of the program.}}
+		Both implementations of the program utilise the same file hierarchy:
+		\subsubsection{Files}
 				\begin{itemize}
 					\item \textbf{readmymind.c} - This file contains the main function of the program. It is responsible for handling the control flow of the program and initialising the necessary structs and variables required.
 					\item \textbf{cards.c} - This file is responsible for initialising the fundamental structures required for use in the program. Has a function responsible for creating and initialising a 'Deck' struct (by populating it with card structs) as well as a function to create and return a card struct given a suit and rank. The file also has a function 'fill' which randomly selects 21 unique cards from a given deck and uses them to populate a columns struct.

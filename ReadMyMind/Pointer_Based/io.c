@@ -161,6 +161,7 @@ void printRank(int rank) {
             printf("K");
             break;
         default:
+            //If the rank is not an alphabetic character then print the rank integer + 1
             printf("%d", rank + 1);
             break;
     }
