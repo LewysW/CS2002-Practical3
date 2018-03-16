@@ -19,6 +19,8 @@ int getUserCol() {
 
     do {
         printf("Which column does your card sit in? (L, M, R)\n");
+
+        //Told to avoid scanf where possible but no buffer issues have arisen during testing
         scanf("%s", input);
 
         //Repeats while the input is invalid.
@@ -38,7 +40,7 @@ whether the user's input is valid.
 */
 bool isValidInp(char* input) {
     // Valid characters.
-    static const char valid[6] = {'l', 'm', 'r', 'L', 'M', 'R'};
+    const char valid[6] = {'l', 'm', 'r', 'L', 'M', 'R'};
 
     // If the user's input is greater than 1 then return false
     if (strlen(input) > 1) return false;

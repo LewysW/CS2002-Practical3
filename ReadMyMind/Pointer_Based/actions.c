@@ -36,10 +36,6 @@ struct Columns gather(struct Columns columns, int col) {
             break;
     }
 
-    //Frees old columns
-    freeList(columns.first);
-    freeList(columns.second);
-    freeList(columns.third);
     return newColumns;
 
 }
@@ -104,10 +100,6 @@ struct Columns deal(struct Columns columns) {
         }
     }
 
-    //Frees old columns.
-    freeList(columns.first);
-    freeList(columns.second);
-    freeList(columns.third);
     return newColumns;
 
 }

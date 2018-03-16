@@ -16,6 +16,7 @@ int getUserCol() {
 
     do {
         printf("Which column does your card sit in? (L, M, R)\n");
+        //Told to avoid scanf where possible but no buffer issues have arisen during testing
         scanf("%s", input);
 
         //Repeats while the input is invalid.

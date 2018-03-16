@@ -61,7 +61,6 @@ Node addNode(Node head, struct Card card) {
 //Recursively goes through a linked list and returns the node at a given index
 Node getNode(Node head, int index) {
     if (head->index == index) return head;
-
     return getNode(head->next, index);
 }
 

@@ -9,8 +9,6 @@ int main() {
     to store the user's choice of column. */
     struct Deck deck = getDeck();
     struct Columns columns = fill(deck.node);
-    //Frees deck
-    freeList(deck.node);
     int col;
 
     /* Repeats 3 times, each time printing the 3 columns of 7 cards and prompting
@@ -26,6 +24,9 @@ int main() {
     //Cards are printed a final time and the system displays the user's card.
     printCols(columns);
     printCentreCard(columns);
+
+    //Frees deck
+    freeList(deck.node);
 
     //Frees columns
     freeList(columns.first);
