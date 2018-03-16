@@ -8,6 +8,9 @@
 #define NUM_SUITS 4
 #define COLUMN_SIZE 7
 #define NUM_COLUMNS 3
+#define ANSI_RED "\x1b[31m"
+#define ANSI_ESCAPE "\x1b[0m"
+
 
 /* Represents a card and stores its suit and rank as a number from 0 to 3 and
 0 to 12 respectively */
@@ -97,6 +100,10 @@ void printRank(int rank);
 //Updates the indices of a list from a given index
 void updateIndices(Node node, int index);
 
+//Frees linked list memory
 void freeList(Node node);
+
+//Formats output and decides whether to display suit as red
+void prettyPrint(int suit, int rank);
 
 #endif

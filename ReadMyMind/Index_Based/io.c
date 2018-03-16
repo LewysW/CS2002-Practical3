@@ -100,9 +100,8 @@ void printCols(struct Columns columns) {
             suit = columns.column[j].cards[i].suit;
             rank = columns.column[j].cards[i].rank;
 
-            //Formatting to add an extra space after cards with rank 10.
-            if (rank == 9) printf("%s%s ", RANKS[rank], SUITS[suit]);
-            else printf("%s%s  ", RANKS[rank], SUITS[suit]);
+            prettyPrint(suit, rank);
+
         }
 
         printf("\n");
@@ -118,4 +117,19 @@ void printCentreCard(struct Columns columns) {
     int suit = columns.column[NUM_COLUMNS / 2].cards[COLUMN_SIZE / 2].suit;
     int rank = columns.column[NUM_COLUMNS / 2].cards[COLUMN_SIZE / 2].rank;
     printf("Your card is the %s%s\n", RANKS[rank], SUITS[suit]);
+}
+
+void prettyPrint(int suit, int rank) {
+
+    switch(suit) {
+        case 1:
+        case 2:
+            if (rank == 9) printf("%s"ANSI_RED"%s "ANSI_ESCAPE, RANKS[rank], SUITS[suit]);
+            else printf("%s"ANSI_RED"%s  "ANSI_ESCAPE, RANKS[rank], SUITS[suit]);
+            break;
+        default:
+            if (rank == 9) printf("%s%s ", RANKS[rank], SUITS[suit]);
+            else printf("%s%s  ", RANKS[rank], SUITS[suit]);
+            break;
+    }
 }

@@ -133,10 +133,10 @@ void printSuit(int suit) {
             printf("♠");
             break;
         case 1:
-            printf("♥");
+            printf(ANSI_RED"♥"ANSI_ESCAPE);
             break;
         case 2:
-            printf("♦");
+            printf(ANSI_RED"♦"ANSI_ESCAPE);
             break;
         case 3:
             printf("♣");
