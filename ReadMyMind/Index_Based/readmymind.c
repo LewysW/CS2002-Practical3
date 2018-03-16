@@ -10,19 +10,24 @@ int main() {
     struct Deck deck = getDeck();
     struct Columns columns = fill(deck);
     int col;
+    bool repeat;
 
-    /* Repeats 3 times, each time printing the 3 columns of 7 cards and prompting
-     the user to enter their column of choice signifying where their card is.
-     Cards are gathered and re-dealt into new columns before being printed */
-    for (int i = 0; i < 3; i++) {
+    do {
+        /* Repeats 3 times, each time printing the 3 columns of 7 cards and prompting
+         the user to enter their column of choice signifying where their card is.
+         Cards are gathered and re-dealt into new columns before being printed */
+        for (int i = 0; i < 3; i++) {
+            printCols(columns);
+            col = getUserCol();
+            columns = gather(columns, col);
+            columns = deal(columns);
+        }
+
+        //Cards are printed a final time and the system displays the user's card.
         printCols(columns);
-        col = getUserCol();
-        columns = gather(columns, col);
-        columns = deal(columns);
-    }
+        printCentreCard(columns);
 
-    //Cards are printed a final time and the system displays the user's card.
-    printCols(columns);
-    printCentreCard(columns);
+        repeat = getUserChoice();
+    } while (repeat);
     return 0;
 }

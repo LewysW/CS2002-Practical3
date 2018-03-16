@@ -7,30 +7,46 @@
 int main() {
     /*Declares a deck of 52 cards, the columns to store the 21 cards and an int
     to store the user's choice of column. */
-    struct Deck deck = getDeck();
-    struct Columns columns = fill(deck.node);
+    struct Deck deck = getDeck();;
+    struct Columns columns;
     int col;
+    bool repeat;
 
-    /* Repeats 3 times, each time printing the 3 columns of 7 cards and prompting
-     the user to enter their column of choice signifying where their card is.
-     Cards are gathered and re-dealt into new columns before being printed */
-    for (int i = 0; i < 3; i++) {
+    do {
+        /*
+        Must be set back to null as otherwise after two runs all of the cards
+        will have been chosen.
+        */
+        deck.node = NULL;
+
+        deck = getDeck();
+        columns = fill(deck.node);
+        /* Repeats 3 times, each time printing the 3 columns of 7 cards and prompting
+         the user to enter their column of choice signifying where their card is.
+         Cards are gathered and re-dealt into new columns before being printed */
+        for (int i = 0; i < 3; i++) {
+            printCols(columns);
+            col = getUserCol();
+            columns = gather(columns, col);
+            columns = deal(columns);
+        }
+
+        //Cards are printed a final time and the system displays the user's card.
         printCols(columns);
-        col = getUserCol();
-        columns = gather(columns, col);
-        columns = deal(columns);
-    }
+        printCentreCard(columns);
 
-    //Cards are printed a final time and the system displays the user's card.
-    printCols(columns);
-    printCentreCard(columns);
+        //Frees deck
+        //freeList(deck.node);
+        //Frees columns
+        freeList(columns.first);
+        freeList(columns.second);
+        freeList(columns.third);
+
+        repeat = getUserChoice();
+    } while(repeat);
 
     //Frees deck
     freeList(deck.node);
 
-    //Frees columns
-    freeList(columns.first);
-    freeList(columns.second);
-    freeList(columns.third);
     return 0;
 }

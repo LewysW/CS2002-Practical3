@@ -73,4 +73,8 @@ struct Columns deal(struct Columns columns);
 
 //Formats output and decides whether to display suit as red
 void prettyPrint(int suit, int rank);
+
+bool getUserChoice();
+
+bool isValidChoice(char* input);
 #endif

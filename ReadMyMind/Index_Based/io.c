@@ -32,6 +32,36 @@ int getUserCol() {
     return charInt;
 }
 
+//Allows user to repeat trick
+bool getUserChoice() {
+    //Stores the users input
+    char* input = malloc(sizeof(100));
+
+    printf("Repeat? (Y)\n");
+    //Told to avoid scanf where possible but no buffer issues have arisen during testing
+    scanf("%s", input);
+    return isValidChoice(input);
+}
+
+bool isValidChoice(char* input) {
+    // If the user's input is greater than 1 then return false
+    if (strlen(input) > 1) return false;
+
+    // Cases with valid input return true otherwise false is returned.
+    switch(*(input)) {
+        case 'y':
+        case 'Y':
+            return true;
+            break;
+        default:
+            return false;
+            break;
+    }
+
+    // Should never happen but will terminate program if it does.
+    assert(!"Uncreachable Code");
+}
+
 /*
 Iterates over the character(s) input by the user and returns a boolean signifying
 whether the user's input is valid.
@@ -116,9 +146,15 @@ Prints the card in the centre of the columns.
 void printCentreCard(struct Columns columns) {
     int suit = columns.column[NUM_COLUMNS / 2].cards[COLUMN_SIZE / 2].suit;
     int rank = columns.column[NUM_COLUMNS / 2].cards[COLUMN_SIZE / 2].rank;
-    printf("Your card is the %s%s\n", RANKS[rank], SUITS[suit]);
+
+    if (suit == 1 || suit == 2) {
+        printf("Your card is the %s"ANSI_RED"%s\n"ANSI_ESCAPE, RANKS[rank], SUITS[suit]);
+    } else {
+        printf("Your card is the %s%s\n", RANKS[rank], SUITS[suit]);
+    }
 }
 
+//Prints formatted output with colour red for red suits.
 void prettyPrint(int suit, int rank) {
 
     switch(suit) {

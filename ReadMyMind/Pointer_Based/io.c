@@ -30,6 +30,36 @@ int getUserCol() {
     return charInt;
 }
 
+//Allows user to repeat trick
+bool getUserChoice() {
+    //Stores the users input
+    char* input = malloc(sizeof(100));
+
+    printf("Repeat? (Y)\n");
+    //Told to avoid scanf where possible but no buffer issues have arisen during testing
+    scanf("%s", input);
+    return isValidChoice(input);
+}
+
+bool isValidChoice(char* input) {
+    // If the user's input is greater than 1 then return false
+    if (strlen(input) > 1) return false;
+
+    // Cases with valid input return true otherwise false is returned.
+    switch(*(input)) {
+        case 'y':
+        case 'Y':
+            return true;
+            break;
+        default:
+            return false;
+            break;
+    }
+
+    // Should never happen but will terminate program if it does.
+    assert(!"Uncreachable Code");
+}
+
 /*
 Uses a switch statement to determine whether the user's input is valid. If the
 character entered is a valid case then true is returned otherwise by default
